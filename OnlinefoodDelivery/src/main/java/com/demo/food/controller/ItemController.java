@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.demo.food.entity.Category;
 import com.demo.food.entity.Item;
+import com.demo.food.exception.ItemNotFoundException;
 import com.demo.food.services.IItemService;
 
 @RestController
@@ -25,7 +26,7 @@ public class ItemController {
 	
 	//View item
 	@GetMapping("/item/{itemId}")
-	ResponseEntity<Item> viewItem(@PathVariable("itemId") int itemId) {
+	ResponseEntity<Item> viewItem(@PathVariable("itemId") int itemId) throws ItemNotFoundException {
 		Item item = itemService.getItemById(itemId);
 		return new ResponseEntity<>(item,HttpStatus.OK);
 	}
@@ -58,15 +59,18 @@ public class ItemController {
 	}
 	//view Items by category
 	@GetMapping("/item/category/{cat}")
-	List<Item> viewAllItemsByCat(@PathVariable("cat") String categoryName){
+	ResponseEntity<List<Item>> viewAllItemsByCat(@PathVariable("cat") String categoryName){
 		List<Item> itm = itemService.viewAllItemsByCat(categoryName);
-		return itm;
+		return new ResponseEntity<>(itm,HttpStatus.OK);
 		
 	}
- 
-
-//	public List<Item> viewAllItems(Restaurant res);
-//	public List<Item> viewAllItems(Category cat);
+	
+	//view Items by restaurant
+	@GetMapping("/item/restaurant/{res}")
+	ResponseEntity<List<Item>> viewAllItemsByRes(@PathVariable("res")String restaurantName){
+		List<Item> itm = itemService.viewAllItemsByRes(restaurantName);
+		return new ResponseEntity<>(itm,HttpStatus.OK);
+	}
 
 
 }

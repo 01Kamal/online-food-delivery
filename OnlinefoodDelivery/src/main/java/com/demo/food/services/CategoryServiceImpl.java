@@ -1,12 +1,14 @@
 package com.demo.food.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.demo.food.dao.ICategoryDao;
 import com.demo.food.entity.Category;
+import com.demo.food.exception.CategoryNotFoundException;
 
 @Service
 public class CategoryServiceImpl implements ICategoryService {
@@ -39,9 +41,12 @@ public class CategoryServiceImpl implements ICategoryService {
 	}
 
 	@Override
-	public Category viewCategoryById(int catId) {
-		Category c =categoryDao.findById(catId).get();
-		return c;
+	public Category viewCategoryById(int catId) throws CategoryNotFoundException {
+		Optional<Category> c =categoryDao.findById(catId);
+		if(!c.isPresent()) {
+			throw new CategoryNotFoundException("No such category Found" +catId);
+		}
+		return c.get();
 	}
 
 	@Override

@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.demo.food.entity.Item;
 import com.demo.food.entity.Restaurant;
+import com.demo.food.exception.RestaurantNotFoundException;
 import com.demo.food.services.IRestaurantService;
 
 @RestController
@@ -44,7 +46,7 @@ public class RestaurantController {
 	
 	//View Restaurant based on Restaurant Name
 	@GetMapping("/restaurant/{name}")
-	ResponseEntity<Restaurant> viewRestaurant(@PathVariable("name") String restaurantName) {
+	ResponseEntity<Restaurant> viewRestaurant(@PathVariable("name") String restaurantName) throws RestaurantNotFoundException {
 		Restaurant rest = restaurantService.viewRestaurant(restaurantName);
 		return new ResponseEntity<>(rest, HttpStatus.OK);
 	}
@@ -56,9 +58,13 @@ public class RestaurantController {
 		return new ResponseEntity<>(rest,HttpStatus.CREATED);
 	}
 	
-	
+	//view Restaurant Name based on Item Name
+	@GetMapping("/restaurant/item/{itm}")
+	ResponseEntity<List<Restaurant>> viewAllRestaurantByItm(@PathVariable("itm")String itemName){
+		List<Restaurant> res = restaurantService.viewAllRestaurantByItm(itemName);
+		return new ResponseEntity<>(res,HttpStatus.OK);
+	}
 
 //	public List<Restaurant> viewNearByRestaurant(String location);
-//	public List<Restaurant> viewRestaurantByItemName(String name);
 
 }

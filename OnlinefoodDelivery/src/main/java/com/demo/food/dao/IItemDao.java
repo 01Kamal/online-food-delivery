@@ -17,12 +17,12 @@ public interface IItemDao extends JpaRepository<Item, Integer> {
 	List<Item> viewAllItemsByName(@Param("itemName")String itemName);
 
 	
-	@Query("Select i.itemName from Item i inner join Category c on i.category.catId = c.catId where c.categoryName=:catName")
+	@Query("Select i from Item i inner join Category c on i.category.catId = c.catId where c.categoryName=:catName")
 	List<Item> viewAllItemsByCat(@Param("catName") String catName);
 
-
 	
-//	@Query("Select itemName from Item inner join Category on category_fk=catId ")
-//	List<Item> viewAllItemsByCat(Item itm);
-
+	@Query("Select i from Item i inner join Restaurant r on i.restaurant.restaurantId = r.restaurantId where r.restaurantName=:resName")
+	List<Item> viewAllItemsByRes(@Param("resName") String restaurantName);
+	
+	
 }

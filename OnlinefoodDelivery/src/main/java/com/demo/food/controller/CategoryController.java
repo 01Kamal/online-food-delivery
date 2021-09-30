@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.demo.food.entity.Category;
+import com.demo.food.exception.CategoryNotFoundException;
 import com.demo.food.services.ICategoryService;
 
 @RestController
@@ -51,7 +52,7 @@ public class CategoryController {
 	
 	//view category by id
 	@GetMapping("/category/id/{catId}")
-	ResponseEntity<Category> viewCategoryById(@PathVariable int catId, @RequestBody Category cat) {
+	ResponseEntity<Category> viewCategoryById(@PathVariable int catId, @RequestBody Category cat) throws CategoryNotFoundException {
 		Category c = categoryService.viewCategoryById(catId);
 		return new ResponseEntity<>(c,HttpStatus.OK);
 	}

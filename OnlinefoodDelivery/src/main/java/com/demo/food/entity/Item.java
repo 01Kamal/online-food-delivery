@@ -11,6 +11,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import lombok.ToString;
+
 @Entity
 @Table(name = "Item")
 public class Item {
@@ -29,11 +33,15 @@ public class Item {
 	@Column(name = "cost")
 	private double cost;
 	
+	
 	@ManyToOne
 	@JoinColumn(name = "category_fk")
 	private Category category;
 	
-	
+	@ManyToOne
+	@JoinColumn(name = "restaurant_fk")
+	private Restaurant restaurant;
+
 	public Item() {}
 
 	public Item(int itemId, String itemName, int quantity, double cost) {
@@ -83,12 +91,20 @@ public class Item {
 	public void setCategory(Category category) {
 		this.category = category;
 	}
+	public Restaurant getRestaurant() {
+		return restaurant;
+	}
+
+	public void setRestaurant(Restaurant restaurant) {
+		this.restaurant = restaurant;
+	}
 
 	@Override
 	public String toString() {
 		return "Item [itemId=" + itemId + ", itemName=" + itemName + ", quantity=" + quantity + ", cost=" + cost
-				+ ", category=" + category + "]";
+				+ ", category=" + category + ", restaurant=" + restaurant + "]";
 	}
+
 	
 	
 	

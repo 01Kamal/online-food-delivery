@@ -1,6 +1,7 @@
 package com.demo.food.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.demo.food.dao.IItemDao;
 import com.demo.food.entity.Category;
 import com.demo.food.entity.Item;
+import com.demo.food.exception.ItemNotFoundException;
 
 @Service
 public class ItemServiceImpl implements IItemService {
@@ -16,9 +18,12 @@ public class ItemServiceImpl implements IItemService {
 	IItemDao itemDao;
 
 	@Override
-	public Item getItemById(int itemId) {
-		Item item = itemDao.findById(itemId).get();
-		return item;
+	public Item getItemById(int itemId) throws ItemNotFoundException {
+		Optional<Item> item = itemDao.findById(itemId);
+		if(!item.isPresent()) {
+			throw new ItemNotFoundException("Item is Not present with given Id" +itemId);
+		}
+		return item.get();
 	}
 
 	@Override
@@ -51,6 +56,11 @@ public class ItemServiceImpl implements IItemService {
 	@Override
 	public List<Item> viewAllItemsByCat(String catName) {
 		return itemDao.viewAllItemsByCat(catName);
+	}
+
+	@Override
+	public List<Item> viewAllItemsByRes(String restaurantName) {
+		return itemDao.viewAllItemsByRes(restaurantName);
 	}
 		
 //	}

@@ -1,13 +1,14 @@
 package com.demo.food.services;
 
 import java.util.List;
-
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.demo.food.dao.IRestaurantDao;
 import com.demo.food.entity.Restaurant;
+import com.demo.food.exception.RestaurantNotFoundException;
 
 @Service
 public class RestaurantServiceImpl implements IRestaurantService {
@@ -34,9 +35,12 @@ public class RestaurantServiceImpl implements IRestaurantService {
 	}
 
 	@Override
-	public Restaurant viewRestaurant(String restaurantName) {
-		Restaurant rest = restaurantDao.findByRestaurantName(restaurantName);
-		return rest;
+	public Restaurant viewRestaurant(String restaurantName) throws RestaurantNotFoundException {
+		Optional<Restaurant> rest = restaurantDao.findByRestaurantName(restaurantName);
+		if(!rest.isPresent()) {
+			throw new RestaurantNotFoundException("Restaurant Not Found with such Name" +restaurantName);
+		}
+		return rest.get();
 	}
 
 	@Override
@@ -46,6 +50,11 @@ public class RestaurantServiceImpl implements IRestaurantService {
 		rest.setManagerName(res.getManagerName());
 		rest.setContactNumber(res.getContactNumber());
 		return restaurantDao.save(rest);
+	}
+
+	@Override
+	public List<Restaurant> viewAllRestaurantByItm(String itemName) {
+		return restaurantDao.viewAllRestaurantByItm(itemName);
 	}
 
 	
