@@ -15,6 +15,7 @@ import com.demo.food.entity.Restaurant;
 public interface IRestaurantDao extends JpaRepository<Restaurant, Integer> {
 
 	Optional<Restaurant> findByRestaurantName(String restaurantName);
+	
 	@Query("Select r from Restaurant r inner join r.item ra where ra.itemName =:itemName")
 	List<Restaurant> viewAllRestaurantByItm(@Param("itemName")String itemName);
 	

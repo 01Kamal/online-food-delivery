@@ -2,6 +2,8 @@ package com.demo.food.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +34,7 @@ public class ItemController {
 	}
 	//add item
 	@PostMapping("/item")
-	ResponseEntity<Item> addItem(Item item) {
+	ResponseEntity<Item> addItem(@Valid Item item) {
 		Item itm = itemService.addItem(item);
 		return new ResponseEntity<>(itm,HttpStatus.CREATED);
 	}

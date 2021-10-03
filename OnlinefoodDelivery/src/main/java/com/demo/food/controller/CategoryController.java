@@ -2,6 +2,8 @@ package com.demo.food.controller;
 
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +25,8 @@ public class CategoryController {
 	@Autowired
 	ICategoryService categoryService;
 	
+	public static Logger logger = LogManager.getLogger();
+	
 	//view All category
 	@GetMapping("/category")
 	ResponseEntity<List<Category>> viewAllCategory() {
@@ -32,7 +36,9 @@ public class CategoryController {
 	//add Category
 	@PostMapping("/category")
 		ResponseEntity<Category> addCategory(@RequestBody Category cat) {
+			logger.info("Sending Request to the service layer to add Category");
 			Category c = categoryService.addCategory(cat);
+			logger.debug("Received Response from Service layer");
 			return new ResponseEntity<>(c,HttpStatus.CREATED);
 		}
 	

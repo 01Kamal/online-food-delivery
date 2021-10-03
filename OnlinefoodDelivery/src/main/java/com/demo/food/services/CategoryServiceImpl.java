@@ -3,6 +3,8 @@ package com.demo.food.services;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,8 @@ public class CategoryServiceImpl implements ICategoryService {
 	
 	@Autowired
 	ICategoryDao categoryDao;
+	
+	public static Logger logger = LogManager.getLogger();
 
 	@Override
 	public List<Category> viewAllCategory() {
@@ -23,6 +27,7 @@ public class CategoryServiceImpl implements ICategoryService {
 
 	@Override
 	public Category addCategory(Category cat) {
+		logger.info(cat.getCategoryName());
 		return categoryDao.save(cat);
 	}
 

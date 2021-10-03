@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -24,13 +26,15 @@ public class Item {
 	@Column(name = "itemId")
 	private int itemId;
 	
-	@Column(name = "itemName")
+	@Column(name = "itemName", unique = true, nullable =  false)
+	@NotEmpty
+	@Size(min=2,message="minimum size should be 2 characters")
 	private String itemName;
 	
-	@Column(name = "quantity")
+	@Column(name = "quantity", nullable = false)
 	private int quantity;
 	
-	@Column(name = "cost")
+	@Column(name = "cost", nullable = false)
 	private double cost;
 	
 	
