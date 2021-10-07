@@ -13,7 +13,7 @@ class updateRestaurant extends Component {
   componentDidMount() {
     axios
       .get(
-        "http://localhost:8082/restaurant/${this.props.match.params.restaurantId}"
+        `http://localhost:8082/restaurant/${this.props.match.params.restaurantId}`
       )
       .then((res) => {
         console.log(res);
@@ -30,7 +30,7 @@ class updateRestaurant extends Component {
     e.preventDefault();
     axios
       .put(
-        "http://localhost:8082/restaurant/${this.props.match.params.restaurantId}",
+        `http://localhost:8082/restaurant/${this.props.match.params.restaurantId}`,
         this.state.restaurant
       )
       .then(() => {
@@ -43,7 +43,7 @@ class updateRestaurant extends Component {
         <div className="container">
           <div>
             <div className="card col-md-6 offset-md-3 offset-md-3">
-              <h2 className="text-cener">Add Restaurant</h2>
+              <h2 className="text-cener">Update Restaurant</h2>
               <div className="card-body">
                 <form onSubmit={this.handleSubmit}>
                   <div className="form-group">

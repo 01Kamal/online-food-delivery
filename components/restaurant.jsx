@@ -12,6 +12,17 @@ class Restaurant extends Component {
       this.setState({ restaurant: res.data });
     });
   }
+  handleDelete = (restaurantId) => {
+    axios
+      .delete(`http://localhost:8082/restaurant/${restaurantId}`)
+      .then((res) => {
+        const restaurant = this.state.restaurant.filter(
+          (p) => p.restaurantid !== restaurantId
+        );
+        this.setState({ restaurant: restaurant });
+        this.props.history.push("/restaurant");
+      });
+  };
   render() {
     const { restaurant } = this.state;
 
@@ -48,12 +59,11 @@ class Restaurant extends Component {
                         className="btn btn-outline-primary bi bi-file-earmark-check-fill"
                       ></button>
                     </Link>
-                    <Link to={`/restaurant/${res.restaurantId}`}>
-                      <button
-                        type="button"
-                        className="btn btn-outline-primary bi bi bi-scissors"
-                      ></button>
-                    </Link>
+                    <button
+                      type="button"
+                      className="btn btn-outline-primary bi bi bi-scissors"
+                      onClick={() => this.handleDelete(res.restaurantId)}
+                    ></button>
                   </td>
                 </tr>
               ))}
