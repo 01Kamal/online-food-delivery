@@ -19,6 +19,11 @@ class Restaurant extends Component {
       <div>
         <h3>RESTAURANT PAGE</h3>
         <div>
+          <Link to="/addRestaurant">
+            <button className="btn btn-primary">Add-Restaurant</button>
+          </Link>
+        </div>
+        <div>
           <table className="table table-striped table-bordered">
             <thead>
               <tr>
@@ -37,7 +42,7 @@ class Restaurant extends Component {
                   <td>{res.managerName}</td>
                   <td>{res.contactNumber}</td>
                   <td>
-                    <Link to={`/restaurant/${res.restaurantId}`}>
+                    <Link to={`/updaterestaurant/${res.restaurantId}`}>
                       <button
                         type="button"
                         className="btn btn-outline-primary bi bi-file-earmark-check-fill"
