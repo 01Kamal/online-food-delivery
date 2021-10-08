@@ -23,6 +23,9 @@ class Restaurant extends Component {
         this.props.history.push("/restaurant");
       });
   };
+  handleView(restaurantId) {
+    this.props.history.push(`/viewRestaurant/${restaurantId}`);
+  }
   render() {
     const { restaurant } = this.state;
 
@@ -61,9 +64,18 @@ class Restaurant extends Component {
                     </Link>
                     <button
                       type="button"
+                      style={{ marginLeft: "10px" }}
                       className="btn btn-outline-primary bi bi bi-scissors"
                       onClick={() => this.handleDelete(res.restaurantId)}
                     ></button>
+                    <button
+                      type="button"
+                      className="btn btn-info"
+                      style={{ marginLeft: "10px" }}
+                      onClick={() => this.handleView(res.restaurantId)}
+                    >
+                      View
+                    </button>
                   </td>
                 </tr>
               ))}
