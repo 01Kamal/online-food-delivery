@@ -25,7 +25,10 @@ public class CategoryServiceTest {
 		
 	}
 
-	
+	@Test
+	void testAddCategory() {
+		
+	}
 
 	
 		

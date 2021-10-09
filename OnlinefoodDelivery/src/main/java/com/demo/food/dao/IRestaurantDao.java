@@ -18,6 +18,11 @@ public interface IRestaurantDao extends JpaRepository<Restaurant, Integer> {
 	
 	@Query("Select r from Restaurant r inner join r.item ra where ra.itemName =:itemName")
 	List<Restaurant> viewAllRestaurantByItm(@Param("itemName")String itemName);
+
+	
+
+//	@Query("Select r from Restaurant r inner join Address a on r.Address.addressId = a.addressId where a.street=:str")
+//	List<Restaurant> viewNearByRestaurant(@Param("str")String street);
 	
 //	@Query("Select i from Item i inner join Category c on i.category.catId = c.catId where c.categoryName=:catName")
 //	List<Item> viewAllItemsByCat(@Param("catName") String catName);

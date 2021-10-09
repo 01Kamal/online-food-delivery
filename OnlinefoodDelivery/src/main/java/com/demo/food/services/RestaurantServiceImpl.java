@@ -57,5 +57,16 @@ public class RestaurantServiceImpl implements IRestaurantService {
 		return restaurantDao.viewAllRestaurantByItm(itemName);
 	}
 
+	@Override
+	public Restaurant getRestaurantById(int restaurantId) {
+		Optional<Restaurant> restaurant = restaurantDao.findById(restaurantId);
+		return restaurant.get();
+	}
+
+//	@Override
+//	public List<Restaurant> viewNearByRestaurant(String street) {
+//		return restaurantDao.viewNearByRestaurant(street);
+//	}
+
 	
 }

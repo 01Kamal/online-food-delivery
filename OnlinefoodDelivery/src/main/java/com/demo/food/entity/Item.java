@@ -15,8 +15,10 @@ import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.Data;
 import lombok.ToString;
 
+@Data
 @Entity
 @Table(name = "Item")
 public class Item {
@@ -45,72 +47,5 @@ public class Item {
 	@ManyToOne
 	@JoinColumn(name = "restaurant_fk")
 	private Restaurant restaurant;
-
-	public Item() {}
-
-	public Item(int itemId, String itemName, int quantity, double cost) {
-		super();
-		this.itemId = itemId;
-		this.itemName = itemName;
-		this.quantity = quantity;
-		this.cost = cost;
-	}
-
-	public int getItemId() {
-		return itemId;
-	}
-
-	public void setItemId(int itemId) {
-		this.itemId = itemId;
-	}
-
-	public String getItemName() {
-		return itemName;
-	}
-
-	public void setItemName(String itemName) {
-		this.itemName = itemName;
-	}
-
-	public int getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
-
-	public double getCost() {
-		return cost;
-	}
-
-	public void setCost(double cost) {
-		this.cost = cost;
-	}
-	
-	public Category getCategory() {
-		return category;
-	}
-
-	public void setCategory(Category category) {
-		this.category = category;
-	}
-	public Restaurant getRestaurant() {
-		return restaurant;
-	}
-
-	public void setRestaurant(Restaurant restaurant) {
-		this.restaurant = restaurant;
-	}
-
-	@Override
-	public String toString() {
-		return "Item [itemId=" + itemId + ", itemName=" + itemName + ", quantity=" + quantity + ", cost=" + cost
-				+ ", category=" + category + ", restaurant=" + restaurant + "]";
-	}
-
-	
-	
-	
 
 }

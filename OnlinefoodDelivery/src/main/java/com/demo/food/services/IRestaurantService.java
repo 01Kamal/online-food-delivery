@@ -20,4 +20,8 @@ public interface IRestaurantService {
 
 	List<Restaurant> viewAllRestaurantByItm(String itemName);
 
+	Restaurant getRestaurantById(int restaurantId);
+
+//	List<Restaurant> viewNearByRestaurant(String street);
+
 }

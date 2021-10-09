@@ -31,7 +31,6 @@ public class Category {
 	
 	@JsonIgnore
 	@OneToMany(targetEntity= Item.class, mappedBy = "category")
-//	@JoinColumn(name = "item_fk", referencedColumnName= "catId")
 	private List<Item> item = new ArrayList<>();
 	
 

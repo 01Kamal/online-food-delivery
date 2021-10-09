@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,19 +16,29 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.demo.food.entity.Item;
 import com.demo.food.entity.Restaurant;
+import com.demo.food.exception.ItemNotFoundException;
 import com.demo.food.exception.RestaurantNotFoundException;
 import com.demo.food.services.IRestaurantService;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 public class RestaurantController {
 	
 	@Autowired
 	IRestaurantService restaurantService;
 	
+	
+	
 	//view all restaurants
 	@GetMapping("/restaurant")
 	ResponseEntity<List<Restaurant>> viewAllRestaurants() {
 		return new ResponseEntity<>(restaurantService.viewAllRestaurants(), HttpStatus.OK);
+	}
+	
+	@GetMapping("/restaurant/{restaurantId}")
+	ResponseEntity<Restaurant> viewRestaurant(@PathVariable("restaurantId") int restaurantId) {
+		Restaurant restaurant = restaurantService.getRestaurantById(restaurantId);
+		return new ResponseEntity<>(restaurant,HttpStatus.OK);
 	}
 	
 	//Add new restaurant
@@ -45,7 +56,7 @@ public class RestaurantController {
 	}
 	
 	//View Restaurant based on Restaurant Name
-	@GetMapping("/restaurant/{name}")
+	@GetMapping("/restaurant/name/{name}")
 	ResponseEntity<Restaurant> viewRestaurant(@PathVariable("name") String restaurantName) throws RestaurantNotFoundException {
 		Restaurant rest = restaurantService.viewRestaurant(restaurantName);
 		return new ResponseEntity<>(rest, HttpStatus.OK);
@@ -64,7 +75,11 @@ public class RestaurantController {
 		List<Restaurant> res = restaurantService.viewAllRestaurantByItm(itemName);
 		return new ResponseEntity<>(res,HttpStatus.OK);
 	}
-
-//	public List<Restaurant> viewNearByRestaurant(String location);
+		
+//	@GetMapping("/restaurant/address/{street}")
+//	ResponseEntity<List<Restaurant>> viewNearByRestaurant(@PathVariable("street") String street){
+//		List<Restaurant> res = restaurantService.viewNearByRestaurant(street);
+//		return new ResponseEntity<>(res, HttpStatus.OK);
+//	}
 
 }
